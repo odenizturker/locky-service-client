@@ -1,11 +1,15 @@
 spring:
   application.name: client
-  datasource:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${locky.services.auth.url}
+          jwk-set-uri: ${locky.services.auth.url}/oauth2/jwks
+  r2dbc:
     username: ${database.username}
     password: ${database.password}
-    url: jdbc:postgresql://${database.endpoint}/${database.name}
-    driver-class-name: org.postgresql.Driver
-    generate-unique-name: false
+    url: r2dbc:postgresql://${database.endpoint}/${database.name}?preparedStatementCacheQueries=0
   flyway:
     user: ${database.username}
     password: ${database.password}
@@ -14,7 +18,12 @@ spring:
     table: flyway_${spring.application.name}_schema_history
 
 server:
-  port: 9000
+  port: 9001
+
+locky:
+  services:
+    auth:
+      url: http://localhost:9000
 
 database:
   endpoint: localhost:5432
