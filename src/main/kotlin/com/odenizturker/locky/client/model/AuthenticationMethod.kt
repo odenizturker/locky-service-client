@@ -1,7 +1,5 @@
 package com.odenizturker.locky.client.model
 
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod
-
 enum class AuthenticationMethod(
     val value: String,
 ) {
@@ -11,13 +9,5 @@ enum class AuthenticationMethod(
     PRIVATE_KEY_JWT("private_key_jwt"),
     NONE("none"),
     TLS_CLIENT_AUTH("tls_client_auth"),
-    SELF_SIGNED_TLS_CLIENT_AUTH("self_signed_tls_client_auth"), ;
-
-    companion object {
-        fun from(clientAuthenticationMethods: Set<ClientAuthenticationMethod>): Set<AuthenticationMethod> =
-            clientAuthenticationMethods
-                .map { clientAuthenticationMethod ->
-                    entries.first { it.value == clientAuthenticationMethod.value }
-                }.toSet()
-    }
+    SELF_SIGNED_TLS_CLIENT_AUTH("self_signed_tls_client_auth"),
 }

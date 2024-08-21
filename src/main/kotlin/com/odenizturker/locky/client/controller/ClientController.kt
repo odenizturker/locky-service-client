@@ -1,7 +1,8 @@
 package com.odenizturker.locky.client.controller
 
+import com.odenizturker.locky.client.model.ClientCreationRequest
+import com.odenizturker.locky.client.model.ClientModel
 import com.odenizturker.locky.client.service.ClientService
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,16 +19,16 @@ class ClientController(
 ) {
     @PostMapping
     suspend fun create(
-        @RequestBody registeredClient: RegisteredClient,
-    ): Unit = clientService.create(registeredClient)
+        @RequestBody clientCreationRequest: ClientCreationRequest,
+    ): Unit = clientService.create(clientCreationRequest)
 
     @GetMapping("/{id}")
     suspend fun getById(
         @PathVariable id: UUID,
-    ): RegisteredClient = clientService.getById(id)
+    ): ClientModel = clientService.getById(id)
 
     @GetMapping
     suspend fun getByClientId(
         @RequestParam clientId: String,
-    ): RegisteredClient = clientService.getByClientId(clientId)
+    ): ClientModel = clientService.getByClientId(clientId)
 }

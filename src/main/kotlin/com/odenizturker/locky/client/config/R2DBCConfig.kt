@@ -69,8 +69,7 @@ class R2DBCConfig(
     @Bean
     fun transactionManager(connectionFactory: ConnectionFactory?): ReactiveTransactionManager = R2dbcTransactionManager(connectionFactory!!)
 
-    @Bean
-    fun customConversions(): R2dbcCustomConversions {
+    override fun r2dbcCustomConversions(): R2dbcCustomConversions {
         val converters =
             listOf(
                 ClientSettingsReadingConverter(objectMapper),
